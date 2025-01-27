@@ -1,0 +1,50 @@
+.chatroom_container {
+    padding: 20px;
+    text-align: center;
+}
+
+.chatroom_title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #4a90e2;
+}
+
+.messages_container {
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 8px;
+    margin: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.input_group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.input {
+    width: 300px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.send_button {
+    padding: 10px 15px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send_button:hover {
+    background-color: #357abd;
+}

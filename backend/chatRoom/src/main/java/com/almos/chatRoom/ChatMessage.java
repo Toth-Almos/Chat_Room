@@ -17,9 +17,7 @@ public class ChatMessage {
     public String getContent() {
         return content;
     }
-    public String getSender() {
-        return sender;
-    }
+    public String getSender() { return sender; }
     public String getReceiver() {
         return receiver;
     }
