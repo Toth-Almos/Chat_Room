@@ -14,14 +14,8 @@ public class ChatMessage {
 
     //For some reason lombok annotations don't work...
     //So I had to write getters manually, so it won't throw "MessageConversionException"
-    public String getContent() {
-        return content;
-    }
+    public String getContent() { return content; }
     public String getSender() { return sender; }
-    public String getReceiver() {
-        return receiver;
-    }
-    public MessageType getType() {
-        return type;
-    }
+    public String getReceiver() { return receiver; }
+    public MessageType getType() { return type; }
 }
