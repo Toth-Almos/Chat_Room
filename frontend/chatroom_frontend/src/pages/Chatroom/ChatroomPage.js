@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
@@ -12,6 +12,26 @@ export function ChatroomPage() {
     const stompClientRef = useRef(null); // Ref to store stompClient
     const [isConnected, setIsConnected] = useState(false); // To track connection state
     const subscriptionRef = useRef(false); // To track whether we've already subscribed to the topic
+
+    const sendConnectMessage = useCallback(() => {
+        if (stompClientRef.current) {
+            const messagePayload = {
+                sender: username,
+                content: `${username} joined!`,
+                type: 'JOIN'
+            };
+            stompClientRef.current.send('/app/chat-addUser', {}, JSON.stringify(messagePayload));
+        } else {
+            alert("Can't connect user to the room, beacuse WebSocket connection is not established yet.");
+        }
+    }, [username]);
+
+    useEffect(() => {
+        if (isConnected) {
+            // Send message to server that user joined the room:
+            sendConnectMessage();
+        }
+    }, [isConnected, sendConnectMessage])
 
     useEffect(() => {
         if (!username) {
@@ -32,10 +52,10 @@ export function ChatroomPage() {
             // Subscribe to the public chat topic only once
             if (!subscriptionRef.current) {
                 stompClientRef.current.subscribe('/topic/public', (message) => {
+                    // This callback function will run anytime we receive a message:
                     const messageBody = JSON.parse(message.body);
                     setMessages((prevMessages) => [...prevMessages, messageBody]);
                 });
-
                 // Mark subscription as done
                 subscriptionRef.current = true;
             }
